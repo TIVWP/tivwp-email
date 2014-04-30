@@ -1,4 +1,4 @@
-tivwp-email
+TIVWP-EMAIL
 ===========
 
-TIVWP-EMAIL WordPress Email Settings
+WordPress Email Settings
