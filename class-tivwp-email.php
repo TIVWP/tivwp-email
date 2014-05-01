@@ -5,6 +5,9 @@
  */
 class TIVWP_Email {
 
+	const MIN_CAPABILITY       = 'activate_plugins';
+	const MENU_SLUG_EMAIL_TEST = 'tivwp-email-test';
+
 	/** @var object $_config */
 	private $_config;
 
@@ -72,6 +75,53 @@ class TIVWP_Email {
 		$ARGS['subject'] .= ' - ' . $ARGS['to'];
 		$ARGS['to'] = $this->get_mail_to();
 		return $ARGS;
+	}
+
+	/**
+	 * Make an admin page to send test email
+	 * @see menu_callback__email_test()
+	 */
+	public function action__admin_menu() {
+		add_management_page(
+			__( 'TIVWP Email Test', 'tivwp-email' ),
+			__( 'TIVWP Email Test', 'tivwp-email' ),
+			self::MIN_CAPABILITY,
+			self::MENU_SLUG_EMAIL_TEST,
+			array(
+				$this,
+				'menu_callback__email_test'
+			)
+		);
+
+	}
+
+	/**
+	 * This function is called when the "Email Test" admin menu link is clicked
+	 * @see action__admin_menu()
+	 */
+	public function menu_callback__email_test() {
+
+		/**
+		 * Send a test email
+		 */
+		$to      = get_option( 'admin_email' );
+		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
+
+		$body = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
+
+		wp_mail( $to, $subject, $body );
+
+		/**
+		 * Clone configuration object to hide the password before printing configuration
+		 * (Without cloning, the actual configuration would change)
+		 */
+		$config                = clone( $this->_config );
+		$config->SMTP_PASSWORD = str_repeat( '*', strlen( $config->SMTP_PASSWORD ) );
+
+		/**
+		 * Display the page
+		 */
+		include 'view-admin-email-test.inc.php';
 	}
 
 } // class
