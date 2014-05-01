@@ -45,5 +45,4 @@
 		</tr>
 		</tbody>
 	</table>
-	<?php wp_mail( $to, $subject, $body ); ?>
 </div>
