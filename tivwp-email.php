@@ -30,36 +30,68 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if ( ! empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
-	require_once 'class-tivwp-email.php';
-	$oTIVWP_Email = new TIVWP_Email( $GLOBALS['TIVWP']['EMAIL'] );
-	unset( $GLOBALS['TIVWP']['EMAIL'] );
+/*
+ * This plugin does nothing unless a special global array is setup in wp-config
+ *
+ * Tip: wp-config can (and should) be different on development and production environments.
+ *
+ * Example:
+ *
+$GLOBALS['TIVWP']['EMAIL'] = array(
+	// Using GMail SMTP
+	'SMTP_ENABLED'  => true,
+	'SMTP_HOST'     => 'smtp.gmail.com',
+	'SMTP_PORT'     => '587',
+	'SMTP_SECURE'   => 'tls',
+	'SMTP_AUTH'     => true,
+	'SMTP_USER'     => 'me@gmail.com',
+	'SMTP_PASSWORD' => '*****',
+	// Forcing all email sent to ... (better if not the same as the SMTP_USER)
+	'MAIL_TO'       => 'me@hotmail.com',
+);
+*/
+if ( empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
+	return;
+}
 
-	if ( $oTIVWP_Email->get_smtp_enabled() ) {
-		/**
-		 * @see TIVWP_Email::filter__phpmailer_init__setup_smtp()
-		 */
-		add_filter( 'phpmailer_init',
-			array(
-				$oTIVWP_Email,
-				'filter__phpmailer_init__setup_smtp'
-			)
-			, 10, 1
-		);
-	}
+/**
+ * Load the class, construct the object and destroy the wp-config global (do not need it anymore)
+ * @global TIVWP_Email $oTIVWP_Email
+ */
+require_once 'class-tivwp-email.php';
+$oTIVWP_Email = new TIVWP_Email( $GLOBALS['TIVWP']['EMAIL'] );
+unset( $GLOBALS['TIVWP']['EMAIL'] );
 
-	if ( $oTIVWP_Email->get_mail_to() ) {
-		/**
-		 * @see TIVWP_Email::filter__wp_mail__force_mail_to()
-		 */
-		add_filter( 'wp_mail',
-			array(
-				$oTIVWP_Email,
-				'filter__wp_mail__force_mail_to'
-			)
-			, 10, 1
-		);
-	}
+/**
+ * Setup SMTP if defined in config
+ */
+if ( $oTIVWP_Email->get_smtp_enabled() ) {
+	/**
+	 * @see TIVWP_Email::filter__phpmailer_init__setup_smtp()
+	 */
+	add_filter( 'phpmailer_init',
+		array(
+			$oTIVWP_Email,
+			'filter__phpmailer_init__setup_smtp'
+		)
+		, 10, 1
+	);
+}
+
+/**
+ * Force "To:" if defined in config
+ */
+if ( $oTIVWP_Email->get_mail_to() ) {
+	/**
+	 * @see TIVWP_Email::filter__wp_mail__force_mail_to()
+	 */
+	add_filter( 'wp_mail',
+		array(
+			$oTIVWP_Email,
+			'filter__wp_mail__force_mail_to'
+		)
+		, 10, 1
+	);
 }
 
 # --- EOF
