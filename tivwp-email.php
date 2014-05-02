@@ -5,7 +5,7 @@
  * Description: Configure email settings (SMTP, etc.)
  * Text Domain: tivwp-email
  * Domain Path: /languages/
- * Version: 14.05.01
+ * Version: 14.05.02
  * Author: TIV.NET
  * Author URI: http://www.tiv.net
  * Network: false
@@ -32,11 +32,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-/*
+/**
  * This plugin does nothing unless a special global array is setup in wp-config
- *
+ * *
  * Tip: wp-config can (and should) be different on development and production environments.
- *
+ * If you'd like to have only a part of wp-config different by server, you can create an additional file
+ * and include it in the wp-config, like this:
+ * <code>
+ * require_once dirname( __FILE__ ) . '/tivwp-settings-local.inc.php';
+ * </code>
+ */
+
+/*
  * Example:
  *
 $GLOBALS['TIVWP']['EMAIL'] = array(
@@ -57,12 +64,30 @@ if ( empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
 }
 
 /**
- * Load the class, construct the object and destroy the wp-config global (do not need it anymore)
+ * Load the class
+ */
+require_once dirname( __FILE__ ) . '/class-tivwp-email.php';
+
+/**
+ * Construct the object.
+ * The object becomes global, which allows access to it from another plugin or a theme.
+ * (for example, to remove the actions/filters this class defines)
  * @global TIVWP_Email $oTIVWP_Email
  */
-require_once 'class-tivwp-email.php';
+global $oTIVWP_Email;
 $oTIVWP_Email = new TIVWP_Email( $GLOBALS['TIVWP']['EMAIL'] );
+
+/**
+ * Destroy the wp-config global (do not need it anymore).
+ */
 unset( $GLOBALS['TIVWP']['EMAIL'] );
+
+
+
+/**
+ * From here, the Controller part starts
+ * In this plugin, it's quite simple. For more complicated controllers, we'd put the below code in a separate file.
+ */
 
 /**
  * Setup SMTP if defined in config

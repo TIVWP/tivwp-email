@@ -70,11 +70,17 @@
 		<?php
 		/**
 		 * The submit button's value serves as a cache buster
+		 * *
+		 * Dashicons is the official icon font of the WordPress admin as of 3.8.
+		 * Because the icons are top-aligned (see dashicons.css), we need to apply a style to display button with icon.
 		 */
 		?>
 		<button class="button-primary" type="submit" name="send_email" id="send_email" value="<?php echo time(); ?>">
+			<span class="dashicons dashicons-email" style="vertical-align:middle"></span>
 			<?php esc_html_e( 'Send Test Email', 'tivwp-email' ); ?>
 		</button>
 	</form>
 
 </div>
+<?php
+# --- EOF

@@ -6,7 +6,7 @@
 class TIVWP_Email {
 
 	const MIN_CAPABILITY       = 'activate_plugins';
-	const MENU_SLUG_EMAIL_TEST = 'tivwp-email-test';
+	const MENU_SLUG_EMAIL_TEST = 'tivwp-email';
 
 	/** @var object $_config */
 	private $_config;
@@ -83,8 +83,8 @@ class TIVWP_Email {
 	 */
 	public function action__admin_menu() {
 		add_management_page(
-			__( 'TIVWP Email Test', 'tivwp-email' ),
-			__( 'TIVWP Email Test', 'tivwp-email' ),
+			__( 'TIVWP Email', 'tivwp-email' ),
+			__( 'TIVWP Email', 'tivwp-email' ),
 			self::MIN_CAPABILITY,
 			self::MENU_SLUG_EMAIL_TEST,
 			array(
@@ -108,8 +108,18 @@ class TIVWP_Email {
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
 		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		if ( 0 ) {
-			wp_mail( $to, $subject, $body );
+		if ( ! empty( $_GET['send_email'] ) ) {
+
+			0&&wp_mail( $to, $subject, $body );
+
+			/**
+			 * Display admin notice
+			 * Note that the message will be shown below the page title (H2), regardless its place in the code.
+			 * @link https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+			 */
+			echo '<div class="updated"><p>';
+			esc_html_e( 'Email sent.', 'tivwp-email' );
+			echo '</p></div>';
 		}
 
 		/**
