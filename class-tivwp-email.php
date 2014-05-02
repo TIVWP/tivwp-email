@@ -106,10 +106,11 @@ class TIVWP_Email {
 		 */
 		$to      = get_option( 'admin_email' );
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
+		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		$body = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
-
-		wp_mail( $to, $subject, $body );
+		if ( 0 ) {
+			wp_mail( $to, $subject, $body );
+		}
 
 		/**
 		 * Clone configuration object to hide the password before printing configuration
