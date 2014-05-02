@@ -63,63 +63,16 @@ if ( empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
 	return;
 }
 
-/**
- * Load the class
- */
-require_once dirname( __FILE__ ) . '/class-tivwp-email.php';
 
 /**
- * Construct the object.
- * The object becomes global, which allows access to it from another plugin or a theme.
- * (for example, to remove the actions/filters this class defines)
- * @global TIVWP_Email $oTIVWP_Email
+ * Load the plugin Controller
  */
-global $oTIVWP_Email;
-$oTIVWP_Email = new TIVWP_Email( $GLOBALS['TIVWP']['EMAIL'] );
+require_once dirname( __FILE__ ) . '/class-tivwp-email-controller.php';
 
 /**
- * Destroy the wp-config global (do not need it anymore).
+ * The Controller starts working when WordPress is fully loaded
+ * @see TIVWP_Email_Controller::action__wp_loaded
  */
-unset( $GLOBALS['TIVWP']['EMAIL'] );
-
-
-
-/**
- * From here, the Controller part starts
- * In this plugin, it's quite simple. For more complicated controllers, we'd put the below code in a separate file.
- */
-
-/**
- * Setup SMTP if defined in config
- * @see TIVWP_Email::filter__phpmailer_init__setup_smtp()
- */
-if ( $oTIVWP_Email->get_smtp_enabled() ) {
-	add_filter( 'phpmailer_init', array(
-		$oTIVWP_Email,
-		'filter__phpmailer_init__setup_smtp'
-	), 10, 1 );
-}
-
-/**
- * Force "To:" if defined in config
- * @see TIVWP_Email::filter__wp_mail__force_mail_to()
- */
-if ( $oTIVWP_Email->get_mail_to() ) {
-	add_filter( 'wp_mail', array(
-		$oTIVWP_Email,
-		'filter__wp_mail__force_mail_to'
-	), 10, 1 );
-}
-
-/**
- * Make an admin page to send test email
- * @see TIVWP_Email::action__admin_menu()
- */
-if ( is_admin() ) {
-	add_action( 'admin_menu', array(
-		$oTIVWP_Email,
-		'action__admin_menu'
-	) );
-}
+add_action( 'wp_loaded', 'TIVWP_Email_Controller::action__wp_loaded' );
 
 # --- EOF

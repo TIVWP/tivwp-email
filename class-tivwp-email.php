@@ -11,6 +11,9 @@ class TIVWP_Email {
 	/** @var object $_config */
 	private $_config;
 
+	/** @var string $_icon_email */
+	private $_icon_email;
+
 	/**
 	 * Constructor
 	 * Initializes the configuration object
@@ -18,6 +21,22 @@ class TIVWP_Email {
 	 */
 	function __construct( $config = array() ) {
 		$this->_config = (object) $config;
+
+		/**
+		 * Dashicons is the official icon font of the WordPress admin as of 3.8.
+		 * The icons in dashicons.css are top-aligned; Aligning to the middle works better with buttons.
+		 */
+		if ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) {
+			$this->_icon_email = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
+		}
+		else {
+			/**
+			 * For older versions, we'll use the black triangle character
+			 * @link http://www.fileformat.info/info/unicode/char/25ba/index.htm
+			 */
+			$this->_icon_email = '&#x25ba;';
+		}
+
 	}
 
 	/**
@@ -84,7 +103,7 @@ class TIVWP_Email {
 	public function action__admin_menu() {
 		add_management_page(
 			__( 'TIVWP Email', 'tivwp-email' ),
-			__( 'TIVWP Email', 'tivwp-email' ),
+			$this->_icon_email . ' ' . __( 'TIVWP Email', 'tivwp-email' ),
 			self::MIN_CAPABILITY,
 			self::MENU_SLUG_EMAIL_TEST,
 			array(
@@ -110,7 +129,7 @@ class TIVWP_Email {
 
 		if ( ! empty( $_GET['send_email'] ) ) {
 
-			0&&wp_mail( $to, $subject, $body );
+			0 && wp_mail( $to, $subject, $body );
 
 			/**
 			 * Display admin notice
@@ -132,7 +151,7 @@ class TIVWP_Email {
 		/**
 		 * Display the page
 		 */
-		include 'view-admin-email-test.inc.php';
+		include 'view-tivwp-email-admin.phtml';
 	}
 
 } // class
