@@ -16,7 +16,7 @@ Setup SMTP and force MAIL_TO for development and testing
 * Configure SMTP Email. Particularly useful on Windows machines.
 * MAIL_TO overwriting. Force all email to be sent to one address. Useful on staging environment when you do not want email to be sent to the real users.
 
-The settings are stored in a configuration file (`wp_config.php` or similar), so they are not accidentally copied from development to production.
+The settings are stored in a configuration file (`wp-config.php` or similar), so they are not accidentally copied from development to production.
 
 == Installation ==
 
