@@ -129,7 +129,7 @@ class TIVWP_Email {
 
 		if ( ! empty( $_GET['send_email'] ) ) {
 
-			1 && wp_mail( $to, $subject, $body );
+			wp_mail( $to, $subject, $body );
 
 			/**
 			 * Display admin notice
