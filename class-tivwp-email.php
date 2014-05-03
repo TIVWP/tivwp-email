@@ -129,7 +129,7 @@ class TIVWP_Email {
 
 		if ( ! empty( $_GET['send_email'] ) ) {
 
-			0 && wp_mail( $to, $subject, $body );
+			1 && wp_mail( $to, $subject, $body );
 
 			/**
 			 * Display admin notice
@@ -151,7 +151,7 @@ class TIVWP_Email {
 		/**
 		 * Display the page
 		 */
-		include 'view-tivwp-email-admin.phtml';
+		include dirname( __FILE__ ) . '/view-tivwp-email-admin.php';
 	}
 
 } // class

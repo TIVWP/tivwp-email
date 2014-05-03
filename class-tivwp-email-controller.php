@@ -50,14 +50,26 @@ class TIVWP_Email_Controller {
 		}
 
 		/**
-		 * Make an admin page to send test email
-		 * @see TIVWP_Email::action__admin_menu()
+		 * Admin area actions
 		 */
 		if ( is_admin() ) {
+
+			/**
+			 * Make an admin page to send test email
+			 * @see TIVWP_Email::action__admin_menu()
+			 */
 			add_action( 'admin_menu', array(
 				$model,
 				'action__admin_menu'
 			) );
+
+			/**
+			 * Load translation.
+			 * This plugin needs i18n support only in the admin area.
+			 */
+			$folder_i18n = dirname( plugin_basename( __FILE__ ) ) . '/languages';
+			load_plugin_textdomain( 'tivwp-email', false, $folder_i18n );
+
 		}
 
 	}
