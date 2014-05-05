@@ -49,6 +49,10 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 );
 `
 
+= Testing: =
+
+To check the configuration settings, and to send a test email, go to Tools->TIVWP Email in admin.
+
 == Screenshots ==
 
 1. Admin interface to test email settings
