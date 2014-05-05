@@ -31,7 +31,7 @@ Alternatively, see the guide to [Manually Installing Plugins](http://codex.wordp
 
 == Frequently Asked Questions ==
 
-Configuration Example:
+= Configuration Example: =
 
 `
 $GLOBALS['TIVWP']['EMAIL'] = array(
@@ -48,6 +48,7 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 	'MAIL_TO'       => 'me@hotmail.com',
 );
 `
+
 == Screenshots ==
 
 1. Admin interface to test email settings
