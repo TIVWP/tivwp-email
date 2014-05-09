@@ -2,7 +2,7 @@
 Contributors: tivnet
 Tags: development, developer, email, smtp
 Requires at least: 3.8
-Tested up to: 3.9
+Tested up to: 4.0-alpha
 Stable tag: trunk
 License: GPLv2
 License URI: https://github.com/TIVWP/tivwp-email/blob/master/LICENSE
@@ -31,6 +31,10 @@ Alternatively, see the guide to [Manually Installing Plugins](http://codex.wordp
 
 == Frequently Asked Questions ==
 
+= Testing: =
+
+To check the configuration settings, and to send a test email, go to Tools->TIVWP Email in admin.
+
 = Configuration Example: =
 
 `
@@ -48,10 +52,6 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 	'MAIL_TO'       => 'me@hotmail.com',
 );
 `
-
-= Testing: =
-
-To check the configuration settings, and to send a test email, go to Tools->TIVWP Email in admin.
 
 == Screenshots ==
 
