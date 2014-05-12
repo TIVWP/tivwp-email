@@ -1,6 +1,6 @@
 === TIVWP Email ===
 Contributors: tivnet
-Tags: development, developer, email, smtp
+Tags: development, developer, email, smtp, TIVWP
 Requires at least: 3.8
 Tested up to: 4.0-alpha
 Stable tag: trunk
