@@ -5,7 +5,7 @@
  * Description: Configure email settings (SMTP, etc.)
  * Text Domain: tivwp-email
  * Domain Path: /languages/
- * Version: 14.05.02
+ * Version: 14.05.14
  * Author: TIV.NET
  * Author URI: http://www.tiv.net
  * Network: false
@@ -70,9 +70,9 @@ if ( empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
 require_once dirname( __FILE__ ) . '/class-tivwp-email-controller.php';
 
 /**
- * The Controller starts working when WordPress is fully loaded
- * @see TIVWP_Email_Controller::action__wp_loaded
+ * The Controller starts working when other plugins are loaded
+ * @see TIVWP_Email_Controller::constructor
  */
-add_action( 'wp_loaded', 'TIVWP_Email_Controller::action__wp_loaded' );
+add_action( 'plugins_loaded', 'TIVWP_Email_Controller::constructor' );
 
 # --- EOF

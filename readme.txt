@@ -59,5 +59,8 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 
 == Changelog ==
 
+= 14.05.14 =
+* Fix: Start on 'plugins_loaded' instead of 'wp_loaded'. (Contact Form 7, for example, sends emails on 'init')
+
 = 14.05.02 =
 * Initial release

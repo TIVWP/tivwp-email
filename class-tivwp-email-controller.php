@@ -9,7 +9,7 @@ class TIVWP_Email_Controller {
 	/**
 	 * Everything happens here.
 	 */
-	public static function action__wp_loaded() {
+	public static function constructor() {
 
 		/**
 		 * Load the Model
