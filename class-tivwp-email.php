@@ -91,7 +91,7 @@ class TIVWP_Email {
 	 * @return array
 	 */
 	public function filter__wp_mail__force_mail_to( $ARGS = array() ) {
-		$ARGS['subject'] .= ' - ' . $ARGS['to'];
+		$ARGS['subject'] .= ' - ' . ( is_array( $ARGS['to'] ) ? $ARGS['to'][0] : $ARGS['to'] );
 		$ARGS['to'] = $this->get_mail_to();
 		return $ARGS;
 	}
