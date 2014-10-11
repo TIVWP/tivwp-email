@@ -2,7 +2,7 @@
 Contributors: tivnet
 Tags: development, developer, email, smtp, TIVWP
 Requires at least: 3.8
-Tested up to: 4.0-alpha
+Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2
 License URI: https://github.com/TIVWP/tivwp-email/blob/master/LICENSE
