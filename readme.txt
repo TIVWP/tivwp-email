@@ -2,7 +2,7 @@
 Contributors: tivnet
 Tags: development, developer, email, smtp, TIVWP
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2
 License URI: https://github.com/TIVWP/tivwp-email/blob/master/LICENSE
@@ -59,8 +59,13 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 
 == Changelog ==
 
-= 14.05.14 =
+= 1.0.2 =
+
+* Code cleanup using the latest PHP inspections and phpcs.
+* Checked with WordPress 4.6.
+
+= 1.0.1 (14.05.14) =
 * Fix: Start on 'plugins_loaded' instead of 'wp_loaded'. (Contact Form 7, for example, sends emails on 'init')
 
-= 14.05.02 =
+= 1.0.0 (14.05.02) =
 * Initial release

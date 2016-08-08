@@ -1,8 +1,12 @@
 <?php
+/**
+ * File: class-tivwp-email-controller.php
+ *
+ * @package TIVWP-Email
+ */
 
 /**
  * Plugin Controller
- * @package tivwp-email
  */
 class TIVWP_Email_Controller {
 
@@ -12,7 +16,7 @@ class TIVWP_Email_Controller {
 	public static function constructor() {
 
 		/**
-		 * Load the Model
+		 * Load the Model.
 		 */
 		require_once dirname( __FILE__ ) . '/class-tivwp-email.php';
 
@@ -28,25 +32,19 @@ class TIVWP_Email_Controller {
 		unset( $GLOBALS['TIVWP']['EMAIL'] );
 
 		/**
-		 * Setup SMTP if defined in config
+		 * Setup SMTP if defined in config.
+		 *
 		 * @see TIVWP_Email::filter__phpmailer_init__setup_smtp()
 		 */
 		if ( $model->get_smtp_enabled() ) {
-			add_filter( 'phpmailer_init', array(
-				$model,
-				'filter__phpmailer_init__setup_smtp'
-			), 10, 1 );
+			add_filter( 'phpmailer_init', array( $model, 'filter__phpmailer_init__setup_smtp' ), 10, 1 );
 		}
 
 		/**
-		 * Force "To:" if defined in config
-		 * @see TIVWP_Email::filter__wp_mail__force_mail_to()
+		 * Force "To:" if defined in config.
 		 */
 		if ( $model->get_mail_to() ) {
-			add_filter( 'wp_mail', array(
-				$model,
-				'filter__wp_mail__force_mail_to'
-			), 10, 1 );
+			add_filter( 'wp_mail', array( $model, 'filter__wp_mail__force_mail_to' ), 10, 1 );
 		}
 
 		/**
@@ -55,13 +53,11 @@ class TIVWP_Email_Controller {
 		if ( is_admin() ) {
 
 			/**
-			 * Make an admin page to send test email
+			 * Make an admin page to send test email.
+			 *
 			 * @see TIVWP_Email::action__admin_menu()
 			 */
-			add_action( 'admin_menu', array(
-				$model,
-				'action__admin_menu'
-			) );
+			add_action( 'admin_menu', array( $model, 'action__admin_menu' ) );
 
 			/**
 			 * Load translation.
@@ -73,7 +69,6 @@ class TIVWP_Email_Controller {
 		}
 
 	}
+}
 
-} // class
-
-# --- EOF
+/*EOF*/

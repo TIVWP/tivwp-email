@@ -1,6 +1,6 @@
 {
   "name": "tivwp/tivwp-email",
-  "description": "Configure SMTP Email and overwrite MAIL_TO",
+  "description": "Configure WordPress email settings (SMTP, MAIL_TO)",
   "license": "GPL-2.0",
   "type": "wordpress-plugin",
   "require": {}
