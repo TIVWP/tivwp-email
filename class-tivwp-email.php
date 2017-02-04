@@ -96,6 +96,20 @@ class TIVWP_Email {
 			$phpmailer->set( 'Password', $this->_config->SMTP_PASSWORD );
 		}
 		$phpmailer->isSMTP();
+
+		/**
+		 * To prevent PHPMailer certificate error.
+		 * @link http://stackoverflow.com/questions/32694103/phpmailer-openssl-error
+		 * @since 1.0.3
+		 */
+		$phpmailer->SMTPOptions = array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			)
+		);
+
 	}
 
 	/**

@@ -11,7 +11,7 @@
  * Description: Configure email settings (SMTP, etc.)
  * Text Domain: tivwp-email
  * Domain Path: /languages/
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: TIV.NET
  * Author URI: http://www.tiv.net
  * Network: false
