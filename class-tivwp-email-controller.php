@@ -54,8 +54,6 @@ class TIVWP_Email_Controller {
 
 			/**
 			 * Make an admin page to send test email.
-			 *
-			 * @see TIVWP_Email::action__admin_menu()
 			 */
 			add_action( 'admin_menu', array( $model, 'action__admin_menu' ) );
 
@@ -70,5 +68,3 @@ class TIVWP_Email_Controller {
 
 	}
 }
-
-/*EOF*/

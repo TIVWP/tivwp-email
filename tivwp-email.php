@@ -14,12 +14,11 @@
  * Version: 1.0.3
  * Author: TIV.NET
  * Author URI: http://www.tiv.net
- * Network: false
- * License: GPL2
+ * License: GPL-3.0
  */
 
 /**
- * Copyright 2014-16 Gregory Karpinsky (tiv.net)
+ * Copyright 2014-17 Gregory Karpinsky (@tivnet)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as
@@ -62,6 +61,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  *      'SMTP_PASSWORD' => '*****',
  *      // Forcing all email sent to ... (better if not the same as the SMTP_USER)
  *      'MAIL_TO'       => 'me@hotmail.com',
+ *      // Prevent SSL certificate verify error on MS Windows.
+ *      'SMTP_OPTIONS'  => array(
+ *          'ssl' => array(
+ *          'verify_peer'       => false,
+ *          'verify_peer_name'  => false,
+ *          'allow_self_signed' => true,
+ *          )
+ *      ),
  * );
  * </code>
  */
@@ -78,9 +85,5 @@ require_once dirname( __FILE__ ) . '/class-tivwp-email-controller.php';
 
 /**
  * The Controller starts working when other plugins are loaded.
- *
- * @see TIVWP_Email_Controller::constructor
  */
-add_action( 'plugins_loaded', 'TIVWP_Email_Controller::constructor' );
-
-/*EOF*/
+add_action( 'plugins_loaded', array( 'TIVWP_Email_Controller', 'constructor' ) );

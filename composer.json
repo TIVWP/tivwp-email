@@ -1,7 +1,7 @@
 {
   "name": "tivwp/tivwp-email",
   "description": "Configure WordPress email settings (SMTP, MAIL_TO)",
-  "license": "GPL-2.0",
+  "license": "GPL-3.0",
   "type": "wordpress-plugin",
   "require": {}
 }

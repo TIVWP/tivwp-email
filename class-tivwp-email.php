@@ -33,24 +33,13 @@ class TIVWP_Email {
 	 *
 	 * @param array $config The configuration array.
 	 */
-	public function __construct( $config = array() ) {
+	public function __construct( array $config = array() ) {
 		$this->_config = (object) $config;
 
 		/**
-		 * Dashicons is the official icon font of the WordPress admin as of 3.8.
 		 * The icons in dashicons.css are top-aligned; Aligning to the middle works better with buttons.
 		 */
-		if ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) {
-			$this->_icon_email = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
-		} else {
-			/**
-			 * For older versions, we'll use the black triangle character.
-			 *
-			 * @link http://www.fileformat.info/info/unicode/char/25ba/index.htm
-			 */
-			$this->_icon_email = '&#x25ba;';
-		}
-
+		$this->_icon_email = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
 	}
 
 	/**
@@ -78,37 +67,42 @@ class TIVWP_Email {
 	 */
 	public function filter__phpmailer_init__setup_smtp( PHPMailer $phpmailer ) {
 		if ( isset( $this->_config->SMTP_HOST ) ) {
-			$phpmailer->set( 'Host', $this->_config->SMTP_HOST );
+			$phpmailer->Host = $this->_config->SMTP_HOST;
 		}
 		if ( isset( $this->_config->SMTP_PORT ) ) {
-			$phpmailer->set( 'Port', $this->_config->SMTP_PORT );
+			$phpmailer->Port = $this->_config->SMTP_PORT;
 		}
 		if ( isset( $this->_config->SMTP_SECURE ) ) {
-			$phpmailer->set( 'SMTPSecure', $this->_config->SMTP_SECURE );
+			$phpmailer->SMTPSecure = $this->_config->SMTP_SECURE;
 		}
 		if ( isset( $this->_config->SMTP_AUTH ) ) {
-			$phpmailer->set( 'SMTPAuth', $this->_config->SMTP_AUTH );
+			$phpmailer->SMTPAuth = $this->_config->SMTP_AUTH;
 		}
 		if ( isset( $this->_config->SMTP_USER ) ) {
-			$phpmailer->set( 'Username', $this->_config->SMTP_USER );
+			$phpmailer->Username = $this->_config->SMTP_USER;
 		}
 		if ( isset( $this->_config->SMTP_PASSWORD ) ) {
-			$phpmailer->set( 'Password', $this->_config->SMTP_PASSWORD );
+			$phpmailer->Password = $this->_config->SMTP_PASSWORD;
+		}
+		/**
+		 * To prevent PHPMailer certificate error.
+		 * @link  http://stackoverflow.com/questions/32694103/phpmailer-openssl-error
+		 * @since 1.0.3
+		 * @example
+		 * 'SMTP_OPTIONS'  => array(
+		 * 'ssl' => array(
+		 * 'verify_peer'       => false,
+		 * 'verify_peer_name'  => false,
+		 * 'allow_self_signed' => true,
+		 * )
+		 * ),
+		 */
+
+		if ( isset( $this->_config->SMTP_OPTIONS ) ) {
+			$phpmailer->SMTPOptions = $this->_config->SMTP_OPTIONS;
 		}
 		$phpmailer->isSMTP();
 
-		/**
-		 * To prevent PHPMailer certificate error.
-		 * @link http://stackoverflow.com/questions/32694103/phpmailer-openssl-error
-		 * @since 1.0.3
-		 */
-		$phpmailer->SMTPOptions = array(
-			'ssl' => array(
-				'verify_peer' => false,
-				'verify_peer_name' => false,
-				'allow_self_signed' => true
-			)
-		);
 
 	}
 
@@ -120,7 +114,7 @@ class TIVWP_Email {
 	 *
 	 * @return array
 	 */
-	public function filter__wp_mail__force_mail_to( $args = array() ) {
+	public function filter__wp_mail__force_mail_to( array $args = array() ) {
 		$args['subject'] .= ' - ' . ( is_array( $args['to'] ) ? $args['to'][0] : $args['to'] );
 		$args['to'] = $this->get_mail_to();
 
@@ -164,17 +158,21 @@ class TIVWP_Email {
 		 */
 		if ( ! empty( $_GET['send_email'] ) ) { // Input var okay.
 
-			wp_mail( $to, $subject, $body );
+			add_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 
-			/**
-			 * Display admin notice
-			 * Note that the message will be shown below the page title (H2), regardless its place in the code.
-			 *
-			 * @link https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
-			 */
-			echo '<div class="updated"><p>';
-			esc_html_e( 'Email sent.', 'tivwp-email' );
-			echo '</p></div>';
+			if ( wp_mail( $to, $subject, $body ) ):
+				/**
+				 * Display admin notice
+				 * Note that the message will be shown below the page title (H2), regardless its place in the code.
+				 *
+				 * @link https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+				 */
+				echo '<div class="notice notice-success"><p>';
+				esc_html_e( 'Email sent.', 'tivwp-email' );
+				echo '</p></div>';
+			endif;
+
+			remove_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 		}
 
 		/**
@@ -182,6 +180,15 @@ class TIVWP_Email {
 		 */
 		include dirname( __FILE__ ) . '/view-tivwp-email-admin.php';
 	}
-}
 
-/*EOF*/
+	/**
+	 * Print admin notice if sending failed.
+	 *
+	 * @param WP_Error $error
+	 */
+	public static function action__wp_mail_failed( WP_Error $error ) {
+		echo '<div class="notice notice-error"><p>';
+		esc_html_e( $error->get_error_message() );
+		echo '</p></div>';
+	}
+}

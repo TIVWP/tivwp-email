@@ -1,11 +1,11 @@
 === TIVWP Email ===
-Contributors: tivnet
+Contributors: tivnet, tivnetinc
 Tags: development, developer, email, smtp, TIVWP
 Requires at least: 3.8
-Tested up to: 4.6
+Tested up to: 4.7.3
 Stable tag: trunk
-License: GPLv2
-License URI: https://github.com/TIVWP/tivwp-email/blob/master/LICENSE
+License: GPL-3.0
+License URI: http://www.gnu.org/licenses/gpl.txt
 
 Setup SMTP and force MAIL_TO for development and testing
 
@@ -50,6 +50,13 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 	// Forcing all email sent to ...
 	// (better if not the same as the SMTP_USER)
 	'MAIL_TO'       => 'me@hotmail.com',
+	'SMTP_OPTIONS'  => array(
+		'ssl' => array(
+			'verify_peer'       => false,
+			'verify_peer_name'  => false,
+			'allow_self_signed' => true,
+		)
+	),
 );
 `
 
@@ -59,13 +66,19 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 
 == Changelog ==
 
+= 1.0.3 =
+
+* Added configuration parameter `SMTP_OPTIONS`.
+* Code cleanup using the latest PHP inspections and phpcs.
+* Checked with WordPress 4.7.3, the latest versions of [WooCommerce](https://woocommerce.com/) and [WPGlobus](https://wpglobus.com/).
+
 = 1.0.2 =
 
 * Code cleanup using the latest PHP inspections and phpcs.
 * Checked with WordPress 4.6.
 
-= 1.0.1 (14.05.14) =
+= 1.0.1 =
 * Fix: Start on 'plugins_loaded' instead of 'wp_loaded'. (Contact Form 7, for example, sends emails on 'init')
 
-= 1.0.0 (14.05.02) =
+= 1.0.0 =
 * Initial release
