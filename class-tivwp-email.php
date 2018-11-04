@@ -11,6 +11,7 @@
 class TIVWP_Email {
 
 	const MIN_CAPABILITY = 'activate_plugins';
+
 	const MENU_SLUG_EMAIL_TEST = 'tivwp-email';
 
 	/**
@@ -86,6 +87,7 @@ class TIVWP_Email {
 		}
 		/**
 		 * To prevent PHPMailer certificate error.
+		 *
 		 * @link  http://stackoverflow.com/questions/32694103/phpmailer-openssl-error
 		 * @since 1.0.3
 		 * @example
@@ -103,19 +105,19 @@ class TIVWP_Email {
 		}
 		$phpmailer->isSMTP();
 
-
 	}
 
 	/**
 	 * Override the "To:" setting, so the mail is always sent to one address.
 	 * Useful for development and testing.
 	 *
-	 * @param array $args An array of wp_mail() arguments, including the "to" email,                    subject, message, headers, and attachments values.
+	 * @param array $args An array of wp_mail() arguments, including the "to" email, subject, message, headers, and attachments values.
 	 *
 	 * @return array
 	 */
 	public function filter__wp_mail__force_mail_to( array $args = array() ) {
-		$args['subject'] .= ' - ' . ( is_array( $args['to'] ) ? $args['to'][0] : $args['to'] ) . ' ' . date('c');
+		$args['subject'] .= ' - ' . ( is_array( $args['to'] ) ? $args['to'][0] : $args['to'] ) . ' ' . date( 'c' );
+
 		$args['to'] = $this->get_mail_to();
 
 		return $args;
@@ -152,15 +154,11 @@ class TIVWP_Email {
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
 		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		/**
-		 * `// Input var okay.` is a special comment for phpcs to ignore access to superglobal vars.
-		 * https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Flagged-superglobal-usage-in-WordPress-VIP
-		 */
 		if ( ! empty( $_GET['send_email'] ) ) { // Input var okay.
 
 			add_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 
-			if ( wp_mail( $to, $subject, $body ) ):
+			if ( wp_mail( $to, $subject, $body ) ) :
 				/**
 				 * Display admin notice
 				 * Note that the message will be shown below the page title (H2), regardless its place in the code.
@@ -188,7 +186,7 @@ class TIVWP_Email {
 	 */
 	public static function action__wp_mail_failed( WP_Error $error ) {
 		echo '<div class="notice notice-error"><p>';
-		esc_html_e( $error->get_error_message() );
+		echo esc_html( $error->get_error_message() );
 		echo '</p></div>';
 	}
 }
