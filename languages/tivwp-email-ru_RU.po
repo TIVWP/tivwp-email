@@ -1,6 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TIVWP-EMAIL\n"
+"Report-Msgid-Bugs-To: support@tiv.net\n"
 "POT-Creation-Date: 2016-08-08 15:23-0400\n"
 "PO-Revision-Date: 2016-08-08 15:23-0400\n"
 "Last-Translator: Gregory Karpinsky <gregory@tiv.net>\n"
@@ -13,67 +14,87 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-tivwp-email.php:121 class-tivwp-email.php:122
+#: class-tivwp-email.php:136, class-tivwp-email.php:137
 msgid "TIVWP Email"
 msgstr "TIVWP Почта"
 
-#: class-tivwp-email.php:144
+#: class-tivwp-email.php:159
 msgid "Example sent by TIVWP Email"
 msgstr "Образец TIVWP-Почты"
 
-#: class-tivwp-email.php:145
+#: class-tivwp-email.php:160
 msgid "If you received this then the email settings are probably correct."
 msgstr ""
 "Если Вы получили это письмо, то скорее всего почта настроена правильно."
 
-#: class-tivwp-email.php:162
+#: class-tivwp-email.php:174
 msgid "Email sent."
 msgstr "Почта отправлена."
 
-#: view-tivwp-email-admin.php:33
+#: tivwp-email.php:3
+msgid "TIVWP-EMAIL"
+msgstr "TIVWP-EMAIL"
+
+#: tivwp-email.php:4
+msgid "https://github.com/TIVWP/tivwp-email"
+msgstr "https://github.com/TIVWP/tivwp-email"
+
+#: tivwp-email.php:5
+msgid "Configure WordPress email settings (SMTP, MAIL_TO)"
+msgstr "Настройка почты WordPress (SMTP, MAIL_TO)"
+
+#: tivwp-email.php:9
+msgid "TIV.NET"
+msgstr "TIV.NET"
+
+#: tivwp-email.php:10
+msgid "https://www.tiv.net"
+msgstr "https://www.tiv.net"
+
+#: view-tivwp-email-admin.php:26
 msgid "We are ready to send a test email using a standard wp_mail() call:"
 msgstr ""
 "Все готово к отправке тестового сообщения с использованием стандартной "
 "функции wp_mail():"
 
-#: view-tivwp-email-admin.php:37
+#: view-tivwp-email-admin.php:30
 msgid "Recipient (admin email):"
 msgstr "Получатель (адрес почты администратора):"
 
-#: view-tivwp-email-admin.php:41
+#: view-tivwp-email-admin.php:34
 msgid "Recipient overwrite:"
 msgstr "Замена адреса получателя:"
 
-#: view-tivwp-email-admin.php:42
+#: view-tivwp-email-admin.php:35
 msgid "Not specified"
 msgstr "Не указана"
 
-#: view-tivwp-email-admin.php:45
+#: view-tivwp-email-admin.php:38
 msgid "Subject:"
 msgstr "Тема письма:"
 
-#: view-tivwp-email-admin.php:49
+#: view-tivwp-email-admin.php:42
 msgid "Body:"
 msgstr "Содержание письма:"
 
-#: view-tivwp-email-admin.php:53
+#: view-tivwp-email-admin.php:46
 msgid "Configuration:"
 msgstr "Настройки:"
 
-#: view-tivwp-email-admin.php:68
+#: view-tivwp-email-admin.php:61
 msgid "Host name:"
 msgstr "Имя хоста:"
 
-#: view-tivwp-email-admin.php:83
+#: view-tivwp-email-admin.php:72
 msgid "Please click the button below to send a test email:"
 msgstr "Нажмите кнопку внизу, чтобы отправить тестовое сообщение:"
 
-#: view-tivwp-email-admin.php:111
+#: view-tivwp-email-admin.php:96
 msgid "Send Test Email"
 msgstr "Отправить тестовое сообщение"

@@ -1,42 +1,22 @@
 <?php
 /**
- * File: tivwp-email.php
- *
- * @package TIVWP-Email
- */
-
-/**
  * Plugin Name: TIVWP-EMAIL
  * Plugin URI: https://github.com/TIVWP/tivwp-email
- * Description: Configure email settings (SMTP, etc.)
+ * Description: Configure WordPress email settings (SMTP, MAIL_TO)
  * Text Domain: tivwp-email
  * Domain Path: /languages/
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: TIV.NET
- * Author URI: http://www.tiv.net
- * License: GPL-3.0
- */
-
-/**
- * Copyright 2014-17 Gregory Karpinsky (@tivnet)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License, version 2, as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * Author URI: https://www.tiv.net
+ * License: GPL-3.0-or-later
+ * License URI: https://spdx.org/licenses/GPL-3.0-or-later.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+define( 'TIVWP_EMAIL_VERSION', '1.0.4' );
 
 /**
  * This plugin does nothing unless a special global array is setup in wp-config
@@ -76,7 +56,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( empty( $GLOBALS['TIVWP']['EMAIL'] ) ) {
 	return;
 }
-
 
 /**
  * Load the plugin Controller

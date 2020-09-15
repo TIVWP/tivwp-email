@@ -10,8 +10,18 @@
  */
 class TIVWP_Email {
 
+	/**
+	 * Admin area permission.
+	 *
+	 * @var string
+	 */
 	const MIN_CAPABILITY = 'activate_plugins';
 
+	/**
+	 * Admin area menu slug.
+	 *
+	 * @var string
+	 */
 	const MENU_SLUG_EMAIL_TEST = 'tivwp-email';
 
 	/**
@@ -19,14 +29,15 @@ class TIVWP_Email {
 	 *
 	 * @var stdClass
 	 */
-	private $_config;
+	private $config;
 
 	/**
 	 * Icon for admin menu.
+	 * The icons in dashicons.css are top-aligned; Aligning to the middle works better with buttons.
 	 *
 	 * @var string
 	 */
-	private $_icon_email;
+	const ICON_EMAIL = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
 
 	/**
 	 * Constructor
@@ -35,12 +46,7 @@ class TIVWP_Email {
 	 * @param array $config The configuration array.
 	 */
 	public function __construct( array $config = array() ) {
-		$this->_config = (object) $config;
-
-		/**
-		 * The icons in dashicons.css are top-aligned; Aligning to the middle works better with buttons.
-		 */
-		$this->_icon_email = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
+		$this->config = (object) $config;
 	}
 
 	/**
@@ -49,7 +55,7 @@ class TIVWP_Email {
 	 * @return bool
 	 */
 	public function get_smtp_enabled() {
-		return ( isset( $this->_config->SMTP_ENABLED ) ? $this->_config->SMTP_ENABLED : false );
+		return ( isset( $this->config->SMTP_ENABLED ) ? $this->config->SMTP_ENABLED : false );
 	}
 
 	/**
@@ -58,32 +64,32 @@ class TIVWP_Email {
 	 * @return string
 	 */
 	public function get_mail_to() {
-		return ( isset( $this->_config->MAIL_TO ) ? $this->_config->MAIL_TO : '' );
+		return ( isset( $this->config->MAIL_TO ) ? $this->config->MAIL_TO : '' );
 	}
 
 	/**
 	 * Setup PHPMailer.
 	 *
-	 * @param PHPMailer $phpmailer The PHPMailer object.
+	 * @param \PHPMailer\PHPMailer\PHPMailer $phpmailer The PHPMailer object.
 	 */
-	public function filter__phpmailer_init__setup_smtp( PHPMailer $phpmailer ) {
-		if ( isset( $this->_config->SMTP_HOST ) ) {
-			$phpmailer->Host = $this->_config->SMTP_HOST;
+	public function filter__phpmailer_init__setup_smtp( $phpmailer ) {
+		if ( isset( $this->config->SMTP_HOST ) ) {
+			$phpmailer->Host = $this->config->SMTP_HOST; // phpcs:ignore WordPress.NamingConventions
 		}
-		if ( isset( $this->_config->SMTP_PORT ) ) {
-			$phpmailer->Port = $this->_config->SMTP_PORT;
+		if ( isset( $this->config->SMTP_PORT ) ) {
+			$phpmailer->Port = $this->config->SMTP_PORT; // phpcs:ignore WordPress.NamingConventions
 		}
-		if ( isset( $this->_config->SMTP_SECURE ) ) {
-			$phpmailer->SMTPSecure = $this->_config->SMTP_SECURE;
+		if ( isset( $this->config->SMTP_SECURE ) ) {
+			$phpmailer->SMTPSecure = $this->config->SMTP_SECURE; // phpcs:ignore WordPress.NamingConventions
 		}
-		if ( isset( $this->_config->SMTP_AUTH ) ) {
-			$phpmailer->SMTPAuth = $this->_config->SMTP_AUTH;
+		if ( isset( $this->config->SMTP_AUTH ) ) {
+			$phpmailer->SMTPAuth = $this->config->SMTP_AUTH; // phpcs:ignore WordPress.NamingConventions
 		}
-		if ( isset( $this->_config->SMTP_USER ) ) {
-			$phpmailer->Username = $this->_config->SMTP_USER;
+		if ( isset( $this->config->SMTP_USER ) ) {
+			$phpmailer->Username = $this->config->SMTP_USER; // phpcs:ignore WordPress.NamingConventions
 		}
-		if ( isset( $this->_config->SMTP_PASSWORD ) ) {
-			$phpmailer->Password = $this->_config->SMTP_PASSWORD;
+		if ( isset( $this->config->SMTP_PASSWORD ) ) {
+			$phpmailer->Password = $this->config->SMTP_PASSWORD; // phpcs:ignore WordPress.NamingConventions
 		}
 		/**
 		 * To prevent PHPMailer certificate error.
@@ -100,11 +106,10 @@ class TIVWP_Email {
 		 * ),
 		 */
 
-		if ( isset( $this->_config->SMTP_OPTIONS ) ) {
-			$phpmailer->SMTPOptions = $this->_config->SMTP_OPTIONS;
+		if ( isset( $this->config->SMTP_OPTIONS ) ) {
+			$phpmailer->SMTPOptions = $this->config->SMTP_OPTIONS; // phpcs:ignore WordPress.NamingConventions
 		}
 		$phpmailer->isSMTP();
-
 	}
 
 	/**
@@ -116,7 +121,7 @@ class TIVWP_Email {
 	 * @return array
 	 */
 	public function filter__wp_mail__force_mail_to( array $args = array() ) {
-		$args['subject'] .= ' - ' . ( is_array( $args['to'] ) ? $args['to'][0] : $args['to'] ) . ' ' . date( 'c' );
+		$args['subject'] .= ' - ' . ( is_array( $args['to'] ) ? $args['to'][0] : $args['to'] );
 
 		$args['to'] = $this->get_mail_to();
 
@@ -129,7 +134,7 @@ class TIVWP_Email {
 	public function action__admin_menu() {
 		add_management_page(
 			__( 'TIVWP Email', 'tivwp-email' ),
-			$this->_icon_email . ' ' . __( 'TIVWP Email', 'tivwp-email' ),
+			self::ICON_EMAIL . ' ' . __( 'TIVWP Email', 'tivwp-email' ),
 			self::MIN_CAPABILITY,
 			self::MENU_SLUG_EMAIL_TEST,
 			array(
@@ -154,11 +159,11 @@ class TIVWP_Email {
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
 		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		if ( ! empty( $_GET['send_email'] ) ) { // Input var okay.
+		if ( wp_verify_nonce( '' ) && ! empty( $_GET['send_email'] ) ) {
 
 			add_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 
-			if ( wp_mail( $to, $subject, $body ) ) :
+			if ( wp_mail( $to, $subject, $body ) ) {
 				/**
 				 * Display admin notice
 				 * Note that the message will be shown below the page title (H2), regardless its place in the code.
@@ -168,7 +173,7 @@ class TIVWP_Email {
 				echo '<div class="notice notice-success"><p>';
 				esc_html_e( 'Email sent.', 'tivwp-email' );
 				echo '</p></div>';
-			endif;
+			}
 
 			remove_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 		}
@@ -182,9 +187,9 @@ class TIVWP_Email {
 	/**
 	 * Print admin notice if sending failed.
 	 *
-	 * @param WP_Error $error
+	 * @param WP_Error $error WP_Error.
 	 */
-	public static function action__wp_mail_failed( WP_Error $error ) {
+	public static function action__wp_mail_failed( $error ) {
 		echo '<div class="notice notice-error"><p>';
 		echo esc_html( $error->get_error_message() );
 		echo '</p></div>';

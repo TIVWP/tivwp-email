@@ -2,10 +2,11 @@
 Contributors: tivnet, tivnetinc
 Tags: development, developer, email, smtp, TIVWP
 Requires at least: 3.8
-Tested up to: 4.7.3
+Tested up to: 5.5
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0
-License URI: http://www.gnu.org/licenses/gpl.txt
+License URI: https://spdx.org/licenses/GPL-3.0-or-later.html
 
 Setup SMTP and force MAIL_TO for development and testing
 
@@ -65,6 +66,11 @@ $GLOBALS['TIVWP']['EMAIL'] = array(
 1. Admin interface to test email settings
 
 == Changelog ==
+
+= 1.0.4 =
+
+* Fix: PHPMailer namespace error.
+* Code cleanup using the latest PHP inspections and phpcs.
 
 = 1.0.3 =
 

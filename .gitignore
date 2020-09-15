@@ -1,0 +1,5 @@
+/node_modules/
+/wpsvn/
+*.po~
+.phpunit.result.cache
+package-lock.json

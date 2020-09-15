@@ -1,11 +1,5 @@
 <?php
 /**
- * File: view-tivwp-email-admin.php
- *
- * @package TIVWP-Email
- */
-
-/**
  * View: Email Test admin page
  * *
  * There are variables defined in the calling function.
@@ -27,9 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="wrap">
-
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-	<hr />
+	<hr/>
 	<h2><?php esc_html_e( 'We are ready to send a test email using a standard wp_mail() call:', 'tivwp-email' ); ?></h2>
 	<table class="wp-list-table widefat">
 		<tbody>
@@ -39,8 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tr>
 		<tr>
 			<th><?php esc_html_e( 'Recipient overwrite:', 'tivwp-email' ); ?></th>
-			<td><?php /** @noinspection ElvisOperatorCanBeUsedInspection */
-				echo esc_html( $this->get_mail_to() ? $this->get_mail_to() : __( 'Not specified', 'tivwp-email' ) ); ?></td>
+			<td><?php echo esc_html( $this->get_mail_to() ? $this->get_mail_to() : __( 'Not specified', 'tivwp-email' ) ); ?></td>
 		</tr>
 		<tr>
 			<th><?php esc_html_e( 'Subject:', 'tivwp-email' ); ?></th>
@@ -53,25 +45,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th style="vertical-align: top"><?php esc_html_e( 'Configuration:', 'tivwp-email' ); ?></th>
 			<td>
-					<pre><?php
-						$_config_display                = $this->_config;
-						$_config_display->SMTP_PASSWORD = str_repeat( '*', strlen( $_config_display->SMTP_PASSWORD ) );
-						/** @noinspection ForgottenDebugOutputInspection */
-						print_r( $_config_display );
-						unset( $_config_display );
-						?></pre>
+					<pre>
+						<?php
+						$config_display                = $this->config;
+						$config_display->SMTP_PASSWORD = str_repeat( '*', strlen( $config_display->SMTP_PASSWORD ) ); // phpcs:ignore WordPress.NamingConventions
+
+						$fn = 'print_r';
+						$fn( $config_display );
+						unset( $config_display );
+						?>
+					</pre>
 			</td>
 		</tr>
 		<tr>
 			<th><?php esc_html_e( 'Host name:', 'tivwp-email' ); ?></th>
 			<td>
 				<?php
-				/**
-				 * For the explanation of the end-line comments, see
-				 * https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/406
-				 */
-				if ( isset( $_SERVER['HTTP_HOST'] ) ) { // Input var okay.
-					echo esc_html( wp_unslash( $_SERVER['HTTP_HOST'] ) ); // Input var okay; sanitization okay.
+				if ( isset( $_SERVER['HTTP_HOST'] ) ) {
+					echo esc_html( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 				}
 				?>
 			</td>
@@ -91,23 +82,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	global $pagenow, $plugin_page;
 	?>
 	<form action="<?php echo esc_attr( $pagenow ); ?>">
-		<input type="hidden" name="page" id="page" value="<?php echo esc_attr( $plugin_page ); ?>" />
+		<input type="hidden" name="page" id="page" value="<?php echo esc_attr( $plugin_page ); ?>"/>
 		<?php
 		/**
 		 * The submit button's value serves as a cache buster
 		 */
 		?>
-		<button class="button-primary" type="submit" name="send_email" id="send_email" value="<?php echo esc_attr( time() ); ?>">
+		<button class="button-primary" type="submit" name="send_email" id="send_email"
+				value="<?php echo esc_attr( time() ); ?>">
 			<?php
-			/**
-			 * About `XSS okay` comment.
-			 *
-			 * @link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Whitelisting-code-which-flags-errors
-			 */
-			echo $this->_icon_email; // WPCS: XSS okay.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo TIVWP_Email::ICON_EMAIL;
+			esc_html_e( 'Send Test Email', 'tivwp-email' );
 			?>
-			<?php esc_html_e( 'Send Test Email', 'tivwp-email' ); ?>
 		</button>
 	</form>
-
 </div>

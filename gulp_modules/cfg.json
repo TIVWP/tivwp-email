@@ -1,0 +1,48 @@
+{
+  "text_domain": "tivwp-email",
+  "copyright": "TIV.NET INC.",
+  "bugReport": "support@tiv.net",
+  "version": {
+    "define": "TIVWP_EMAIL_VERSION"
+  },
+  "path": {
+    "dist": "/var/www/u/wpglobus.com/dist",
+    "js": "includes/js",
+    "css": "includes/css",
+    "languages": "languages"
+  },
+  "src": {
+    "zip": [
+      "./**/{*,.*}",
+      "!node_modules/**/{.*,*}",
+      "!node_modules",
+      "!assets/**/{.*,*}",
+      "!assets",
+      "!.git/**/{.*,*}",
+      "!.git",
+      "!.tx/**/{.*,*}",
+      "!.tx",
+      "!unit-tests/**/{.*,*}",
+      "!unit-tests",
+      "!.phpunit.result.cache",
+      "!gulp_modules/**/{.*,*}",
+      "!gulp_modules",
+      "!wpsvn/**/{.*,*}",
+      "!wpsvn",
+      "!.gitignore",
+      "!.gitattributes",
+      "!.jshintrc",
+      "!./**/.jshintrc",
+      "!CHANGELOG.md",
+      "!README.md",
+      "!composer.json",
+      "!composer.lock",
+      "!package-lock.json",
+      "!package.json",
+      "!phpunit.xml",
+      "!Gulpfile.js",
+      "!svn_*.*",
+      "!./**/*Test.php"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+# Skip these files and folders when installing with `composer --prefer-dist`
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.tx export-ignore
+/assets export-ignore
+/CHANGELOG.md export-ignore
+/grunt export-ignore
+/Gruntfile.js export-ignore
+/package.json export-ignore
+/README.md export-ignore
+/unit-tests export-ignore
+/svn_exclude.txt export-ignore
+/svn_sync.cmd export-ignore
