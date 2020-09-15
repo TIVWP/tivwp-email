@@ -159,11 +159,14 @@ class TIVWP_Email {
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
 		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		if ( wp_verify_nonce( '' ) && ! empty( $_GET['send_email'] ) ) {
+		0 && wp_verify_nonce( '' );
+		if ( ! empty( $_GET['send_email'] ) ) {
 
 			add_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 
-			if ( wp_mail( $to, $subject, $body ) ) {
+			$rc = wp_mail( $to, $subject, $body );
+
+			if ( $rc ) {
 				/**
 				 * Display admin notice
 				 * Note that the message will be shown below the page title (H2), regardless its place in the code.

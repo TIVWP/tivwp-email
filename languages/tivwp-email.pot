@@ -22,7 +22,7 @@ msgstr ""
 msgid "If you received this then the email settings are probably correct."
 msgstr ""
 
-#: class-tivwp-email.php:174
+#: class-tivwp-email.php:177
 msgid "Email sent."
 msgstr ""
 

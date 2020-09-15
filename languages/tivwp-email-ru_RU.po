@@ -33,7 +33,7 @@ msgid "If you received this then the email settings are probably correct."
 msgstr ""
 "Если Вы получили это письмо, то скорее всего почта настроена правильно."
 
-#: class-tivwp-email.php:174
+#: class-tivwp-email.php:177
 msgid "Email sent."
 msgstr "Почта отправлена."
 
