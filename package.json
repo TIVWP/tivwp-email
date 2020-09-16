@@ -35,25 +35,25 @@
     "svn:add": "cd wpsvn\\tivwp-email && svn add --force trunk && svn status",
     "// 7.1 IF DELETED FILES, svn delete THEM MANUALLY!": "",
     "!7.2 SVN commit": "npm run svn:commit && npm run svn:tag && npm run svn:tag:commit",
-    "svn:commit": "cd wpsvn\\wpglobus && svn ci -m \"%npm_package_title% %npm_package_version%\" --username tivnet",
-    "svn:tag": "cd wpsvn\\wpglobus && svn cp trunk tags/%npm_package_version% && svn stat",
-    "svn:tag:commit": "cd wpsvn\\wpglobus && svn ci -m \"%npm_package_title% tag %npm_package_version%\" --username tivnet",
-    "!!svn:tag:remove": "cd wpsvn\\wpglobus && svn rm tags/%npm_package_version% && svn stat"
+    "svn:commit": "cd wpsvn\\tivwp-email && svn ci -m \"%npm_package_title% %npm_package_version%\" --username tivnet",
+    "svn:tag": "cd wpsvn\\tivwp-email && svn cp trunk tags/%npm_package_version% && svn stat",
+    "svn:tag:commit": "cd wpsvn\\tivwp-email && svn ci -m \"%npm_package_title% tag %npm_package_version%\" --username tivnet",
+    "!!svn:tag:remove": "cd wpsvn\\tivwp-email && svn rm tags/%npm_package_version% && svn stat"
   },
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/WPGlobus/wpglobus.git"
+    "url": "https://github.com/TIVWP/tivwp-email"
   },
-  "author": "The WPGlobus Team <support@wpglobus.com>",
+  "author": "TIV.NET INC <support@tiv.net>",
   "license": "GPL-3.0",
   "jshintConfig": {
     "node": true
   },
   "bugs": {
-    "url": "https://github.com/WPGlobus/wpglobus/issues"
+    "url": "https://www.tiv.net"
   },
-  "homepage": "https://wpglobus.com",
+  "homepage": "https://www.tiv.net",
   "devDependencies": {
     "fancy-log": "^1.3.3",
     "gulp": "^4.0.2",
