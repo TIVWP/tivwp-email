@@ -91,8 +91,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<button class="button-primary" type="submit" name="send_email" id="send_email"
 				value="<?php echo esc_attr( time() ); ?>">
 			<?php
+			wp_nonce_field( TIVWP_Email::NONCE_ACTION, TIVWP_Email::NONCE_NAME );
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo TIVWP_Email::ICON_EMAIL;
+			echo ' ';
 			esc_html_e( 'Send Test Email', 'tivwp-email' );
 			?>
 		</button>

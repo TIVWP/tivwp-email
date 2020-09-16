@@ -20,20 +20,20 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-tivwp-email.php:136, class-tivwp-email.php:137
+#: class-tivwp-email.php:140, class-tivwp-email.php:141
 msgid "TIVWP Email"
 msgstr "TIVWP Почта"
 
-#: class-tivwp-email.php:159
+#: class-tivwp-email.php:163
 msgid "Example sent by TIVWP Email"
 msgstr "Образец TIVWP-Почты"
 
-#: class-tivwp-email.php:160
+#: class-tivwp-email.php:164
 msgid "If you received this then the email settings are probably correct."
 msgstr ""
 "Если Вы получили это письмо, то скорее всего почта настроена правильно."
 
-#: class-tivwp-email.php:177
+#: class-tivwp-email.php:181
 msgid "Email sent."
 msgstr "Почта отправлена."
 
@@ -95,6 +95,6 @@ msgstr "Имя хоста:"
 msgid "Please click the button below to send a test email:"
 msgstr "Нажмите кнопку внизу, чтобы отправить тестовое сообщение:"
 
-#: view-tivwp-email-admin.php:96
+#: view-tivwp-email-admin.php:98
 msgid "Send Test Email"
 msgstr "Отправить тестовое сообщение"

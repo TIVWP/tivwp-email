@@ -10,19 +10,19 @@ msgstr ""
 "Report-Msgid-Bugs-To: support@tiv.net\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: class-tivwp-email.php:136, class-tivwp-email.php:137
+#: class-tivwp-email.php:140, class-tivwp-email.php:141
 msgid "TIVWP Email"
 msgstr ""
 
-#: class-tivwp-email.php:159
+#: class-tivwp-email.php:163
 msgid "Example sent by TIVWP Email"
 msgstr ""
 
-#: class-tivwp-email.php:160
+#: class-tivwp-email.php:164
 msgid "If you received this then the email settings are probably correct."
 msgstr ""
 
-#: class-tivwp-email.php:177
+#: class-tivwp-email.php:181
 msgid "Email sent."
 msgstr ""
 
@@ -82,6 +82,6 @@ msgstr ""
 msgid "Please click the button below to send a test email:"
 msgstr ""
 
-#: view-tivwp-email-admin.php:96
+#: view-tivwp-email-admin.php:98
 msgid "Send Test Email"
 msgstr ""

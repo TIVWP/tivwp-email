@@ -39,6 +39,10 @@ class TIVWP_Email {
 	 */
 	const ICON_EMAIL = '<span class="dashicons dashicons-email" style="vertical-align:middle"></span>';
 
+	const NONCE_ACTION = 'tivwp_email_test';
+
+	const NONCE_NAME = 'tivwp_email';
+
 	/**
 	 * Constructor
 	 * Initializes the configuration object
@@ -159,8 +163,8 @@ class TIVWP_Email {
 		$subject = __( 'Example sent by TIVWP Email', 'tivwp-email' );
 		$body    = __( 'If you received this then the email settings are probably correct.', 'tivwp-email' );
 
-		0 && wp_verify_nonce( '' );
 		if ( ! empty( $_GET['send_email'] ) ) {
+			check_admin_referer( self::NONCE_ACTION, self::NONCE_NAME );
 
 			add_action( 'wp_mail_failed', array( __CLASS__, 'action__wp_mail_failed' ) );
 
